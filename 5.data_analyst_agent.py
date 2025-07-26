@@ -43,7 +43,8 @@ def get_data_summary(df):
 
 # Helper: Validate the analysis with LLM
 def verify_summary(df,summary):
-    prompt = f"""Check if the following summary for the given database has any inconsistencies, hallucinations or errors. If it looks correct, say 'Valid'. Else explain the issue.
+    prompt = f"""Check if the following summary for the given database has any inconsistencies, hallucinations or errors. 
+    If it looks correct, say 'Valid'. Else explain the issue.
     Database:{df}
     
     Summary:
@@ -78,7 +79,7 @@ if uploaded_file:
             if "valid" not in validation.lower():
                 st.warning("Initial summary validation failed. Retrying...")
                 summary = get_data_summary(df)
-                validation = verify_summary(summary)
+                validation = verify_summary(df,summary)
 
         st.subheader("🔍 Summary of the Dataset")
         st.text(summary)
